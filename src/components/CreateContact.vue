@@ -19,9 +19,12 @@ export default {
       number: ""
     };
   },
+  
   methods: {
     onSubmit() {
       this.$emit('add-contact', this.name, this.number)
+      this.name=''
+      this.number=''
     }
   }
 };

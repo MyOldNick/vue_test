@@ -2,7 +2,13 @@
   <div>
     <ul id="contactList">
       <div v-if="contactArray.length <=0" class="text-center">Контактов нет</div>
-      <listItem v-else v-for="el of contactArray" v-bind:key="el._id" v-bind:item="el" @delete-item="deleteItem"/>
+      <listItem
+        v-else
+        v-for="el of contactArray"
+        v-bind:key="el._id"
+        v-bind:item="el"
+        @delete-item="deleteItem"
+      />
     </ul>
   </div>
 </template>
@@ -16,11 +22,12 @@ export default {
   components: {
     listItem
   },
+
   methods: {
     deleteItem(id) {
-      this.$emit('delete-item', id)
+      this.$emit("delete-item", id);
     }
-  },
+  }
 };
 </script>
 

@@ -9,9 +9,17 @@
       <input v-model="email" />
       <label class="mt-1">Адрес:</label>
       <input v-model="address" />
-      <button type="submit" class="green add-button mt-1">Обновить</button>
+      <div class="mt-1">
+        <button type="submit" class="gray button br-5">Обновить</button>
+        <router-link class="gray button br-5 ml-1" to="/">Назад</router-link>
+      </div>
     </form>
     <p v-if="isOk">Данные обновлены</p>
+    <div v-if="confirm" class="h-50 w-100">
+      <p>Нажмите "Подтвердить" для обновления</p>
+      <button class="button red br-5" v-on:click="update">Подтвердить</button>
+      <button class="ml-1 button green br-5" v-on:click="confirm = false">Отмена</button>
+    </div>
   </div>
 </template>
 
@@ -28,14 +36,16 @@ export default {
       number: "",
       email: "",
       address: "",
-      isOk: false
+      isOk: false,
+      confirm: false
     };
   },
+
   mounted() {
     const id = this.$route.params.id;
 
     axios.get(`${API}/find?id=${id}`, {}).then(res => {
-      this.updateState(res.data)
+      this.updateState(res.data);
     });
   },
 
@@ -49,14 +59,31 @@ export default {
     },
 
     onSubmit() {
-      axios.put(`${API}/update`, {
-        id: this.$route.params.id,
-        name: this.name,
-        number: this.number,
-        email: this.email,
-        address: this.address
-      }).then(res => res.status === 200 ? this.isOk = true : console.log('ничиво нипраизашло'))
+      this.confirm = true;
+    },
+
+    update() {
+      this.confirm = false;
+      axios
+        .put(`${API}/update`, {
+          id: this.$route.params.id,
+          name: this.name,
+          number: this.number,
+          email: this.email,
+          address: this.address
+        })
+        .then(res =>
+          res.status === 200 ? (this.isOk = true) : console.log("ошибка")
+        );
     }
   }
 };
 </script>
+
+<style>
+
+.gray {
+  background-color: rgb(165, 161, 161);
+  color: white
+}
+</style>

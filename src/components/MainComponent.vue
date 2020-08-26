@@ -19,13 +19,16 @@ export default {
       peopleArray: []
     };
   },
+
   mounted() {
     axios.get(API, {}).then(res => (this.peopleArray = res.data));
   },
+
   components: {
     ContactList,
     CreateContact
   },
+
   methods: {
     removeContact(id) {
       //Для этого есть запрос DELETE, но он работает некорректно, поэтому будет PUT
@@ -36,6 +39,7 @@ export default {
         .then(res => console.log(res.status));
       this.peopleArray = this.peopleArray.filter(el => el._id !== id);
     },
+    
     addContact(name, number) {
       axios
         .post(`${API}/create`, {

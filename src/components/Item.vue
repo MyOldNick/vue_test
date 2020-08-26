@@ -21,7 +21,7 @@
       </div>
     </div>
     <div v-if="openDelete" class="h-50 w-100">
-      <p>Вы уверены что хотите удалить этот контакт??</p>
+      <p>Вы уверены что хотите удалить этот контакт???</p>
       <button href="#" class="button red br-5" v-on:click="remove(item._id)">Да, удалить</button>
       <button href="#" class="ml-1 button green br-5" v-on:click="openDelete = false">Нет</button>
     </div>
